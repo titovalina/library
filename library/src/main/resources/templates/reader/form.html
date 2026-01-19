@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Читатель</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/}">Главная</a>
+    <a th:href="@{/readers}">Читатели</a>
+</nav>
+
+<h1 th:text="${reader.id == null ? 'Добавить читателя' : 'Редактировать читателя'}"></h1>
+
+<div th:if="${error}" style="color:red; margin:20px;">
+    <p th:text="${error}"></p>
+</div>
+
+<form th:action="${reader.id == null}
+        ? @{/readers}
+        : @{/readers/{id}(id=${reader.id})}"
+      method="post"
+      style="margin:20px; width:400px;">
+
+    <label>Имя</label>
+    <input type="text" name="firstName" th:value="${reader.firstName}" required>
+
+    <label>Фамилия</label>
+    <input type="text" name="lastName" th:value="${reader.lastName}" required>
+
+    <label>Отчество</label>
+    <input type="text" name="middleName" th:value="${reader.middleName}">
+
+    <label>Дата рождения</label>
+    <input type="date" name="dateOfBirth" th:value="${reader.dateOfBirth}" required>
+
+    <label>Читательский билет</label>
+    <input type="text" name="readersTicket" th:value="${reader.readersTicket}" required>
+
+    <label>Email</label>
+    <input type="email" name="email" th:value="${reader.email}">
+
+    <label>Телефон</label>
+    <input type="text" name="phone" th:value="${reader.phone}">
+
+    <br><br>
+    <button type="submit">💾 Сохранить</button>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Книги</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav>
+    <a href="/">Главная</a>
+    <a href="/readers">Читатели</a>
+    <a href="/books">Книги</a>
+    <a href="/lendings">Выдача книг</a>
+</nav>
+
+<h1>Список книг</h1>
+
+<a class="button" href="/books/new">Добавить книгу</a>
+
+<p th:if="${successMessage}" th:text="${successMessage}" style="color: green"></p>
+<p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red"></p>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Автор</th>
+        <th>Издательство</th>
+        <th>Жанр</th>
+        <th>Год</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.name}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="${book.publishingHouse}"></td>
+        <td th:text="${book.genre}"></td>
+        <td th:text="${book.yearOfPublication}"></td>
+        <td>
+            <a class="button" th:href="@{/books/edit/{id}(id=${book.id})}">✏️</a>
+
+            <form th:action="@{/books/delete/{id}(id=${book.id})}"
+                  method="post"
+                  style="display:inline">
+                <button type="submit">🗑</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

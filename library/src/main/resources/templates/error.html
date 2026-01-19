@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ошибка</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav>
+    <a href="/">Главная</a>
+    <a href="/readers">Читатели</a>
+    <a href="/books">Книги</a>
+    <a href="/lendings">Выдача книг</a>
+</nav>
+
+<h1>Произошла ошибка</h1>
+
+<div style="margin: 20px; background: white; padding: 20px; border-radius: 8px;">
+    <p>
+        <strong>Сообщение:</strong>
+        <span th:text="${error} ?: 'Что-то пошло не так'"></span>
+    </p>
+
+    <p style="margin-top: 20px;">
+        <a class="button" th:href="@{/}">На главную</a>
+    </p>
+</div>
+
+</body>
+</html>

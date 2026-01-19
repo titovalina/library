@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<libraryDocumentation>
+
+    <!-- ===== ОПИСАНИЕ ПРОЕКТА ===== -->
+    <project>
+        <name>Library Management System</name>
+
+        <description>
+            Веб-приложение для автоматизации работы библиотеки.
+            Разработано с использованием Spring Web MVC и базы данных PostgreSQL.
+            Приложение поддерживает управление читателями, книгами и выдачей книг.
+        </description>
+
+        <technologyStack>
+            <language>Java</language>
+            <framework>Spring Boot</framework>
+            <architecture>MVC</architecture>
+            <templateEngine>Thymeleaf</templateEngine>
+            <database>PostgreSQL</database>
+            <orm>JPA (Hibernate)</orm>
+        </technologyStack>
+
+        <functions>
+            <function>Просмотр данных</function>
+            <function>Добавление данных</function>
+            <function>Редактирование данных</function>
+            <function>Удаление данных</function>
+            <function>Выдача и возврат книг</function>
+        </functions>
+    </project>
+
+    <!-- ===== ОПИСАНИЕ БАЗЫ ДАННЫХ ===== -->
+    <database>
+        <name>library</name>
+
+        <tables>
+
+            <table>
+                <name>reader</name>
+                <primaryKey>id_reader</primaryKey>
+
+                <columns>
+                    <column name="id_reader" type="SERIAL" nullable="false"/>
+                    <column name="first_name" type="VARCHAR(50)" nullable="false"/>
+                    <column name="last_name" type="VARCHAR(50)" nullable="false"/>
+                    <column name="ticket_number" type="VARCHAR(20)" nullable="false" unique="true"/>
+                </columns>
+            </table>
+
+            <table>
+                <name>book</name>
+                <primaryKey>id_book</primaryKey>
+
+                <columns>
+                    <column name="id_book" type="SERIAL" nullable="false"/>
+                    <column name="name" type="VARCHAR(225)" nullable="false"/>
+                    <column name="author" type="VARCHAR(100)" nullable="false"/>
+                    <column name="publishing_house" type="VARCHAR(50)"/>
+                    <column name="genre" type="VARCHAR(50)"/>
+                    <column name="year_of_publication" type="INTEGER"/>
+                </columns>
+            </table>
+
+            <table>
+                <name>book_lending</name>
+                <primaryKey>id_book_lending</primaryKey>
+
+                <columns>
+                    <column name="id_book_lending" type="SERIAL" nullable="false"/>
+                    <column name="id_reader" type="INTEGER" nullable="false"/>
+                    <column name="id_book" type="INTEGER" nullable="false"/>
+                    <column name="date_of_issue" type="DATE" nullable="false"/>
+                    <column name="date_of_due" type="DATE"/>
+                    <column name="return_date" type="DATE"/>
+                </columns>
+
+                <foreignKeys>
+                    <foreignKey column="id_reader" references="reader(id_reader)"/>
+                    <foreignKey column="id_book" references="book(id_book)"/>
+                </foreignKeys>
+            </table>
+
+        </tables>
+    </database>
+
+    <!-- ===== СУЩНОСТИ И СВЯЗИ ===== -->
+    <entities>
+
+        <entity>
+            <name>Reader</name>
+            <table>reader</table>
+
+            <fields>
+                <field name="id" type="Long" primaryKey="true"/>
+                <field name="firstName" type="String"/>
+                <field name="lastName" type="String"/>
+                <field name="ticketNumber" type="String"/>
+            </fields>
+        </entity>
+
+        <entity>
+            <name>Book</name>
+            <table>book</table>
+
+            <fields>
+                <field name="id" type="Long" primaryKey="true"/>
+                <field name="name" type="String"/>
+                <field name="author" type="String"/>
+                <field name="publishingHouse" type="String"/>
+                <field name="genre" type="String"/>
+                <field name="yearOfPublication" type="Integer"/>
+            </fields>
+        </entity>
+
+        <entity>
+            <name>BookLending</name>
+            <table>book_lending</table>
+
+            <fields>
+                <field name="id" type="Long" primaryKey="true"/>
+                <field name="reader" type="Reader"/>
+                <field name="book" type="Book"/>
+                <field name="lendDate" type="LocalDate"/>
+                <field name="dueDate" type="LocalDate"/>
+                <field name="returnDate" type="LocalDate"/>
+            </fields>
+
+            <relations>
+                <relation type="ManyToOne" target="Reader"/>
+                <relation type="ManyToOne" target="Book"/>
+            </relations>
+        </entity>
+
+    </entities>
+
+</libraryDocumentation>

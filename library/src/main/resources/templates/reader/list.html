@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Читатели</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav>
+    <a href="/">Главная</a>
+    <a href="/readers">Читатели</a>
+    <a href="/books">Книги</a>
+    <a href="/lendings">Выдача книг</a>
+</nav>
+
+<h1>Читатели</h1>
+
+<a class="button" th:href="@{/readers/new}">Добавить читателя</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Отчество</th>
+        <th>Дата рождения</th>
+        <th>Билет</th>
+        <th>Email</th>
+        <th>Телефон</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="reader : ${readers}">
+        <td th:text="${reader.id}"></td>
+        <td th:text="${reader.lastName}"></td>
+        <td th:text="${reader.firstName}"></td>
+        <td th:text="${reader.middleName}"></td>
+        <td th:text="${reader.dateOfBirth}"></td>
+        <td th:text="${reader.readersTicket}"></td>
+        <td th:text="${reader.email}"></td>
+        <td th:text="${reader.phone}"></td>
+        <td>
+            <a class="button" th:href="@{/readers/{id}/edit(id=${reader.id})}">✏️</a>
+
+            <form th:action="@{/readers/{id}/delete(id=${reader.id})}"
+                  method="post"
+                  style="display:inline;">
+                <button type="submit">🗑</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

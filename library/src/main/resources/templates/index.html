@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Библиотека</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef6fb;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2a7dbf;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #cfe6f7;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Библиотека</h1>
+    <nav>
+        <a href="/">Главная</a>
+        <a href="/readers">Читатели</a>
+        <a href="/books">Книги</a>
+        <a href="/lendings">Выдача книг</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <!-- Статистика -->
+    <div class="stats">
+        <div class="card">
+            <h3>Книги</h3>
+            <p th:text="${booksCount}"></p>
+        </div>
+
+        <div class="card">
+            <h3>Читатели</h3>
+            <p th:text="${readersCount}"></p>
+        </div>
+
+        <div class="card">
+            <h3>Активные выдачи</h3>
+            <p th:text="${activeLendingsCount}"></p>
+        </div>
+    </div>
+
+    <!-- Активные выдачи -->
+    <h2>Активные выдачи</h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Книга</th>
+            <th>Читатель</th>
+            <th>Дата выдачи</th>
+        </tr>
+
+        <tr th:each="lending : ${activeLendings}">
+            <td th:text="${lending.id}"></td>
+            <td th:text="${lending.book.name}"></td>
+            <td th:text="${lending.reader.lastName}"></td>
+            <td th:text="${lending.dateOfIssue}"></td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>
