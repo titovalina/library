@@ -20,4 +20,48 @@
 * CRUD для выдач книг: оформление выдачи, возврат, просмотр.
 
 ## Структура проекта
-
+library/
+│
+├── pom.xml
+├── docs/
+│   └── library-documentation.xml
+├── src/
+│   └── main/
+│       ├── java/
+│       │   └── com/
+│       │       └── example/
+│       │           └── library/
+│       │               ├── LibraryApplication.java
+│       │               ├── controller/
+│       │               │   ├── IndexController.java
+│       │               │   ├── ReaderController.java
+│       │               │   ├── BookController.java
+│       │               │   └── BookLendingController.java
+│       │               ├── service/
+│       │               │   ├── ReaderService.java
+│       │               │   ├── BookService.java
+│       │               │   └── BookLendingService.java
+│       │               ├── repository/
+│       │               │   ├── ReaderRepository.java
+│       │               │   ├── BookRepository.java
+│       │               │   └── BookLendingRepository.java
+│       │               └── model/
+│       │                   ├── Reader.java
+│       │                   ├── Book.java
+│       │                   └── BookLending.java
+│       └── resources/
+│           ├── application.properties
+│           ├── static/
+│           │   └── css/
+│           │       └── style.css
+│           └── templates/
+│               ├── index.html
+│               ├── readers/
+│               │   ├── list.html
+│               │   └── form.html
+│               ├── books/
+│               │   ├── list.html
+│               │   └── form.html
+│               └── lendings/
+│                   ├── list.html
+│                   └── form.html
